@@ -16,11 +16,12 @@ data_financiero.rename(columns={'A': 'year'}, inplace=True)
 
 # Define the key historical dates and line colors
 important_dates_impo = {
-    '1980': ('01dec1979', 'red'),
-    '1989': ('01dec1988', 'green'),
+    'dic79': ('01dec1979', 'red'),
+    'dic88': ('01dec1988', 'green'),
     'mar18': ('01mar2018', 'orange'),
     'nov23': ('01nov2023', 'purple'),
-    'feb25': ('01feb2025', 'blue')
+    'feb25': ('01feb2025', 'blue'),
+    'ago25': ('01aug2025', 'black')
 }
 
 important_dates_financiero = {
@@ -44,7 +45,7 @@ def plot_kde_with_lines(data, value_column, title, important_dates):
     
     # KDE plot
     sns.kdeplot(data[value_column].dropna(), color='blue', label=f'{value_column} KDE')
-    
+
     # Add vertical lines for important dates with specified colors
     for label, (date, color) in important_dates.items():
         avg_value = data.loc[data['year'] == date, value_column].mean()
@@ -58,7 +59,7 @@ def plot_kde_with_lines(data, value_column, title, important_dates):
     plt.show()
 
 # Plot for TCR_Impo
-plot_kde_with_lines(data_impo, 'TCR_Impo', 'Estimación de densidad kernel para TCR_Impo', important_dates_impo)
+plot_kde_with_lines(data_impo, 'TCR_Impo', 'Estimación de densidad kernel para TCR_Oficial', important_dates_impo)
 
 # Plot for TCR_Financiero
 plot_kde_with_lines(data_financiero, 'TCR_Financiero', 'Estimación de densidad kernel para TCR_Financiero', important_dates_financiero)
